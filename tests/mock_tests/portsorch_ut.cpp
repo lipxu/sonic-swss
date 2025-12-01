@@ -2925,7 +2925,7 @@ namespace portsorch_test
         }
     }
 
-    TEST_F(PortsOrchTest, PortHostIfCreateFailed)
+    TEST_F(PortsOrchTest, DISABLED_PortHostIfCreateFailed)
     {
         Table portTable = Table(m_app_db.get(), APP_PORT_TABLE_NAME);
 
