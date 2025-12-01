@@ -35,10 +35,8 @@ extern string gMyAsicName;
 
 static const vector<sai_switch_stat_t> switch_stat_ids =
 {
-#ifdef SAI_SWITCH_STAT_DROPPED_TRIM_PACKETS
+#ifndef SAI_202505_COMPAT
     SAI_SWITCH_STAT_DROPPED_TRIM_PACKETS,
-#endif
-#ifdef SAI_SWITCH_STAT_TX_TRIM_PACKETS
     SAI_SWITCH_STAT_TX_TRIM_PACKETS
 #endif
 };
