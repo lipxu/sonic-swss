@@ -596,6 +596,7 @@ bool PortsOrch::checkPathTracingCapability()
 }
 
 #ifndef SAI_202505_COMPAT
+__attribute__((unused))
 static bool isPortStatSupported(sai_port_stat_t stat)
 {
     static std::vector<sai_stat_capability_t> statList;
@@ -629,6 +630,7 @@ static bool isPortStatSupported(sai_port_stat_t stat)
     );
 }
 
+__attribute__((unused))
 static bool isMlnxPlatform()
 {
     const auto *platform = std::getenv("platform");
