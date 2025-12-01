@@ -695,6 +695,7 @@ namespace flexcounter_test
         Port firstPort;
         gPortsOrch->getPort(firstPortName, firstPort);
         auto pgOid = firstPort.m_priority_group_ids[3];
+#ifndef SAI_202505_COMPAT
         ASSERT_TRUE(checkFlexCounter(SWITCH_STAT_COUNTER_FLEX_COUNTER_GROUP, gSwitchId,
                                      {
                                          {SWITCH_COUNTER_ID_LIST,
@@ -702,6 +703,7 @@ namespace flexcounter_test
                                           "SAI_SWITCH_STAT_DROPPED_TRIM_PACKETS"
                                          }
                                      }));
+#endif
         ASSERT_TRUE(checkFlexCounter(PG_DROP_STAT_COUNTER_FLEX_COUNTER_GROUP, pgOid,
                                      {
                                          {PG_COUNTER_ID_LIST,
