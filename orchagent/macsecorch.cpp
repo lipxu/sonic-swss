@@ -743,6 +743,7 @@ void MACsecOrch::handleNotification(NotificationConsumer &consumer, KeyOpFieldsV
     auto data = kfvKey(entry);
     SWSS_LOG_NOTICE("Received SAI notification: op %s, data %s", op.c_str(), data.c_str());
 
+#ifndef SAI_202505_COMPAT
     if (op == "switch_macsec_post_status")
     {
         sai_object_id_t switch_id;
@@ -832,6 +833,7 @@ void MACsecOrch::handleNotification(NotificationConsumer &consumer, KeyOpFieldsV
             }
         }
     }
+#endif
 }
 
 void MACsecOrch::doTask(Consumer &consumer)
@@ -1217,12 +1219,14 @@ bool MACsecOrch::initMACsecObject(sai_object_id_t switch_id)
     attr.value.booldata = true;
     attrs.push_back(attr);
 
+#ifndef SAI_202505_COMPAT
     if (m_enable_post)
     {
         attr.id = SAI_MACSEC_ATTR_ENABLE_POST;
         attr.value.booldata = true;
         attrs.push_back(attr);
     }
+#endif
 
     sai_status_t status = sai_macsec_api->create_macsec(
                                 &macsec_obj.first->second.m_egress_id,
@@ -1249,12 +1253,14 @@ bool MACsecOrch::initMACsecObject(sai_object_id_t switch_id)
     attr.value.booldata = true;
     attrs.push_back(attr);
 
+#ifndef SAI_202505_COMPAT
     if (m_enable_post)
     {
         attr.id = SAI_MACSEC_ATTR_ENABLE_POST;
         attr.value.booldata = true;
         attrs.push_back(attr);
     }
+#endif
 
     status = sai_macsec_api->create_macsec(
                                 &macsec_obj.first->second.m_ingress_id,
