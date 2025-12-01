@@ -86,5 +86,5 @@ p4orch_tests_SOURCES = $(ORCHAGENT_DIR)/orch.cpp \
 		       mock_sai_udf.cpp
 
 p4orch_tests_CFLAGS = $(DBGFLAGS) $(AM_CFLAGS) $(CFLAGS_COMMON) $(CFLAGS_GTEST) $(CFLAGS_SAI) $(CFLAGS_ASAN)
-p4orch_tests_CPPFLAGS = $(DBGFLAGS) $(AM_CFLAGS) $(CFLAGS_COMMON) $(CFLAGS_GTEST) $(CFLAGS_SAI) $(CFLAGS_ASAN)
+p4orch_tests_CPPFLAGS = $(DBGFLAGS) $(AM_CFLAGS) $(CFLAGS_COMMON) $(CFLAGS_GTEST) $(CFLAGS_SAI) $(CFLAGS_ASAN) -DSAI_202505_COMPAT
 p4orch_tests_LDADD = $(LDADD_GTEST) $(LDFLAGS_ASAN) -lpthread -lsairedis -lswsscommon -lsaimeta -lsaimetadata -lzmq
