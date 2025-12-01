@@ -791,6 +791,7 @@ int main(int argc, char **argv)
         gVirtualRouterId = attr.value.oid;
         SWSS_LOG_NOTICE("Get switch virtual router ID %" PRIx64, gVirtualRouterId);
 
+#ifndef SAI_202505_COMPAT
         /* Query MACSec POST capability and set POST state in state DB accordingly */
         if (macsec_post_enabled)
         {
@@ -820,6 +821,7 @@ int main(int argc, char **argv)
                 SWSS_LOG_ERROR("MACSec POST is not supported by SAI");
             }
         }
+#endif
 
         /* Get the NAT supported info */
         attr.id = SAI_SWITCH_ATTR_AVAILABLE_SNAT_ENTRY;

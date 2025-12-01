@@ -595,6 +595,7 @@ bool PortsOrch::checkPathTracingCapability()
     return m_isPathTracingSupported;
 }
 
+#ifndef SAI_202505_COMPAT
 static bool isPortStatSupported(sai_port_stat_t stat)
 {
     static std::vector<sai_stat_capability_t> statList;
@@ -644,6 +645,7 @@ static bool isMlnxPlatform()
 
     return true;
 }
+#endif
 
 // Port OA ------------------------------------------------------------------------------------------------------------
 
