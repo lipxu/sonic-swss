@@ -372,8 +372,10 @@ int main(int argc, char **argv)
     int record_type = 3; // Only swss and sairedis recordings enabled by default.
     long heartBeatInterval = HEART_BEAT_INTERVAL_MSECS_DEFAULT;
 
+#ifndef SAI_202505_COMPAT
     // Disable SAI MACSec POST by default. Use option -M to enable it.
     bool macsec_post_enabled = false;
+#endif
 
     while ((opt = getopt(argc, argv, "b:m:r:f:j:d:i:hsz:k:q:c:t:v:I:R:D:M")) != -1)
     {
@@ -494,7 +496,9 @@ int main(int argc, char **argv)
             gRingMode = true;
             break;
          case 'M':
+#ifndef SAI_202505_COMPAT
             macsec_post_enabled = true;
+#endif
             break;
         case 'D': { gFlexCounterDelaySec = swss::to_int<int>(optarg); } break;
         default: /* '?' */
