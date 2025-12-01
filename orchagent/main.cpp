@@ -654,6 +654,7 @@ int main(int argc, char **argv)
     }
 
     string macsec_post_state;
+#ifndef SAI_202505_COMPAT
     if (gMySwitchType != "fabric" && macsec_post_enabled)
     {
         macsec_post_state = "switch-level-post-in-progress";
@@ -671,6 +672,7 @@ int main(int argc, char **argv)
         attrs.push_back(attr);
     }
     else
+#endif
     {
         macsec_post_state = "disabled";
     }

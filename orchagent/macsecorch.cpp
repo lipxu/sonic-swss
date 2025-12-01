@@ -666,6 +666,7 @@ MACsecOrch::MACsecOrch(
 
     if (post_state == "switch-level-post-in-progress")
     {
+#ifndef SAI_202505_COMPAT
         // POST was already enabled in switch init. The completion notification may have already been sent
         // before MACSecOrch is initialized. So query if POST is completed or not. 
         sai_attribute_t attr;
@@ -691,6 +692,7 @@ MACsecOrch::MACsecOrch(
         {
             SWSS_LOG_ERROR("Failed to get MACSec POST status");
         }
+#endif
     }
     else if (post_state == "macsec-level-post-in-progress")
     {
