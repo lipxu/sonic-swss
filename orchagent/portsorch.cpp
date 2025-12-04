@@ -305,8 +305,10 @@ const vector<sai_port_stat_t> port_stat_ids =
     SAI_PORT_STAT_IF_IN_FEC_CODEWORD_ERRORS_S15,
     SAI_PORT_STAT_IF_IN_FEC_CORRECTED_BITS,
     SAI_PORT_STAT_TRIM_PACKETS,
+#ifndef SAI_202505_COMPAT
     SAI_PORT_STAT_DROPPED_TRIM_PACKETS,
     SAI_PORT_STAT_TX_TRIM_PACKETS
+#endif
 };
 
 const vector<sai_port_stat_t> gbport_stat_ids =
@@ -344,8 +346,10 @@ static const vector<sai_queue_stat_t> queue_stat_ids =
     SAI_QUEUE_STAT_DROPPED_PACKETS,
     SAI_QUEUE_STAT_DROPPED_BYTES,
     SAI_QUEUE_STAT_TRIM_PACKETS,
+#ifndef SAI_202505_COMPAT
     SAI_QUEUE_STAT_DROPPED_TRIM_PACKETS,
     SAI_QUEUE_STAT_TX_TRIM_PACKETS
+#endif
 };
 static const vector<sai_queue_stat_t> voq_stat_ids =
 {
@@ -591,6 +595,8 @@ bool PortsOrch::checkPathTracingCapability()
     return m_isPathTracingSupported;
 }
 
+#ifndef SAI_202505_COMPAT
+__attribute__((unused))
 static bool isPortStatSupported(sai_port_stat_t stat)
 {
     static std::vector<sai_stat_capability_t> statList;
@@ -624,6 +630,7 @@ static bool isPortStatSupported(sai_port_stat_t stat)
     );
 }
 
+__attribute__((unused))
 static bool isMlnxPlatform()
 {
     const auto *platform = std::getenv("platform");
@@ -640,6 +647,7 @@ static bool isMlnxPlatform()
 
     return true;
 }
+#endif
 
 // Port OA ------------------------------------------------------------------------------------------------------------
 
@@ -772,11 +780,16 @@ PortsOrch::PortsOrch(DBConnector *db, DBConnector *stateDb, vector<table_name_wi
     }
 
     // Nvidia custom trim stat calculation
+#ifndef SAI_202505_COMPAT
     if (isMlnxPlatform() && \
         isPortStatSupported(SAI_PORT_STAT_TRIM_PACKETS) && \
         isPortStatSupported(SAI_PORT_STAT_TX_TRIM_PACKETS) && \
         !isPortStatSupported(SAI_PORT_STAT_DROPPED_TRIM_PACKETS))
     {
+#else
+    if (false)
+    {
+#endif
         portStatPlugins += "," + nvdaPortTrimSha;
     }
 

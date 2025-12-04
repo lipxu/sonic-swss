@@ -16,6 +16,12 @@ include /usr/share/dpkg/default.mk
 # package maintainers to append LDFLAGS
 #export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
 
+# Enable SAI 202505 compatibility mode for legacy SAI builds
+ifneq (,$(filter legacysai,$(DEB_BUILD_PROFILES)))
+export DEB_CFLAGS_MAINT_APPEND = -DSAI_202505_COMPAT
+export DEB_CXXFLAGS_MAINT_APPEND = -DSAI_202505_COMPAT
+endif
+
 
 # main packaging script based on dh7 syntax
 %:

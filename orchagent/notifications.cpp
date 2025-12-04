@@ -132,6 +132,7 @@ void on_tam_tel_type_config_change(sai_object_id_t tam_tel_id)
 {
 }
 
+#ifndef SAI_202505_COMPAT
 void on_switch_macsec_post_status_notify(sai_object_id_t switch_id,
                                          sai_switch_macsec_post_status_t switch_macsec_post_status)
 {
@@ -161,3 +162,4 @@ void on_macsec_post_status_notify(sai_object_id_t macsec_id,
         macsec_post_status_notify.send("macsec_post_status", sdata, values);
     }
 }
+#endif
